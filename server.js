@@ -16,6 +16,7 @@ const pool = new Pool(
     console.log('Connected to the employees_db database')
 );
 
+//question that are brought up at start of application to see what task you want to do. 
 const questions =
     [
         {
@@ -26,6 +27,8 @@ const questions =
         },
     ];
 
+//question needed to add a department to databse 
+
 const addDepart = [
     {
         type: 'input',
@@ -34,6 +37,7 @@ const addDepart = [
     },
 ];
 
+//question needed to add a role to databse 
 const addRole = [
     {
         type: 'input',
@@ -56,6 +60,7 @@ const addRole = [
     }
 ];
 
+//question needed to add a new employee
 const addEmployee = [
     {
         type: 'input',
@@ -102,6 +107,7 @@ const addEmployee = [
     },
 ];
 
+//question need to update employee
 const updateEmployee = [
     {
         type: 'list',
@@ -123,6 +129,7 @@ const updateEmployee = [
     }
 ];
 
+// switch statemnet to handle the answers to the initial question 
 pool.connect();
 function init() {
     inquirer.prompt(questions).then((userAnswers) => {
@@ -202,7 +209,7 @@ function getRoleId(answers) {
     });
 };
 
-
+// gets the id from employee and then uses it to add employee to the database, also handles if they have a manager or not 
 function addEmployees(answers, roleId) {
     if (answers.manager) {
         pool.query('SELECT id  FROM employee WHERE first_name = $1', [answers.employeeManager], (err, { rows }) => {
@@ -222,6 +229,7 @@ function addEmployees(answers, roleId) {
     }
 };
 
+//fucntion to update employee 
 function updateEmployees(answers) {
     //Gets the id number from the role the user seleceted
     pool.query('SELECT id FROM role WHERE title = $1', [answers.newRole], (err, { rows }) => {
@@ -229,7 +237,7 @@ function updateEmployees(answers) {
         const { id } = ids;
         pool.query(`UPDATE employee SET role_id = ($1) WHERE first_name = ($2)`, [ id ,answers.updatePerson], async (err, { rows }) => {
             console.log(`Changed ${answers.updatePerson} role to ${answers.newRole}`);
-            await init()
+            init()
         });
     });
 };

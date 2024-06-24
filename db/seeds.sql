@@ -1,3 +1,4 @@
+-- adding data into the database
 INSERT INTO department (name)
 VALUES ('Sales'),
        ('Engineering'),

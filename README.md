@@ -15,5 +15,5 @@ This application allows the user to view all departments, all roles, and all emp
 
 
 
-<a href=''>Video walkthrough of application</a>
+<a href='https://app.screencastify.com/v3/watch/ZBF7euYUxFAjdn70sdwF'>Video walkthrough of application</a>
 
