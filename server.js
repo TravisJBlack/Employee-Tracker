@@ -136,18 +136,21 @@ function init() {
         switch (userAnswers.action) {
             case 'view all departments':
                 pool.query('SELECT * FROM department ORDER By name', (err, { rows }) => {
+                    console.log('\n')
                     console.table(rows);
                 });
                 init();
                 break;
             case 'view all roles':
                 pool.query('SELECT role.id, role.title, role.salary, department.name AS department FROM department JOIN role ON role.department = department.id', (err, { rows }) => {
+                    console.log('\n')
                     console.table(rows);
                 });
                 init();
                 break;
             case 'view all employees':
                 pool.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, manager_id FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department = department.id', (err, { rows }) => {
+                    console.log('\n')
                     console.table(rows);
                 });
                 init();
@@ -244,7 +247,7 @@ function updateEmployees(answers) {
 
 
 app.listen(PORT, () => {
-    console.log("Hey you did it!");
+    console.log("Server is running!");
 });
 
 init();
